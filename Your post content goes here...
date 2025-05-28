@@ -5,7 +5,7 @@ Simply edit the relevant line(s) in the `Gemfile`.
 
 ## Adding a plugin
 
-The Minima theme automatically includes the [`jekyll-seo-tag`] plugin.
+The Moonwalk theme automatically includes the [`jekyll-seo-tag`] plugin.
 
 To add an extra plugin, you need to add it in the `Gemfile` *and* in `_config.yml`. For example, to add [`jekyll-default-layout`]:
 
@@ -26,14 +26,14 @@ Note: If you are using a Jekyll version less than 3.5.0, use the `gems` key inst
 
 ## Publishing your site on GitHub Pages
 
-1.  If your created site is `YOUR-USERNAME/YOUR-SITE-NAME`, update `_config.yml` to:
+1.  If your created site is `YOUR-USERNAME.github.io` (for a user/organization page), update `_config.yml` to:
 
     ```yaml
     title: YOUR TITLE
     description: YOUR DESCRIPTION
-    theme: minima
+    theme: moonwalk
 
-    url: https://YOUR-USERNAME.github.io/YOUR-SITE-NAME
+    url: https://YOUR-USERNAME.github.io
     ```
 
 2.  Push your updated `_config.yml` to your site on GitHub.
@@ -62,7 +62,7 @@ Just upload all the files in the directory `_site`.
 
 You're free to customize sites that you create with this template, however you like!
 
-[Browse our documentation][Minima] to learn more about how to use this theme.
+[Browse our documentation][Moonwalk] to learn more about how to use this theme.
 
 ## Licensing and Attribution
 
@@ -75,11 +75,10 @@ The deployment GitHub Actions workflow is heavily based on GitHub's mixed-party 
 [^1]: [It can take up to 10 minutes for changes to your site to publish after you push the changes to GitHub](https://docs.github.com/en/pages/setting-up-a-github-pages-site-with-jekyll/creating-a-github-pages-site-with-jekyll#creating-your-site).
 
 [Jekyll]: https://jekyllrb.com
-[Minima]: https://github.com/jekyll/minima
+[Moonwalk]: https://github.com/abhinavs/moonwalk
 [GitHub Pages]: https://docs.github.com/en/pages
 [GitHub Pages / Actions workflow]: https://github.blog/changelog/2022-07-27-github-pages-custom-github-actions-workflows-beta/
 [Bundler]: https://bundler.io
-[use this template]: https://github.com/just-the-docs/just-the-docs-template/generate
 [`jekyll-default-layout`]: https://github.com/benbalter/jekyll-default-layout
 [`jekyll-seo-tag`]: https://jekyll.github.io/jekyll-seo-tag
 [MIT License]: https://en.wikipedia.org/wiki/MIT_License

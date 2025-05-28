@@ -1,10 +1,8 @@
 title: My Awesome Blog
 description: A place for my thoughts and writings.
-theme: minima
+theme: moonwalk
 
-url: https://memgrafter.github.io/record/ # Keep your existing URL structure
-
-permalink: /:year/:month/:day/:title/
+url: https://memgrafter.github.io/ # Changed to root GitHub Pages URL
 
 plugins:
   - jekyll-feed
