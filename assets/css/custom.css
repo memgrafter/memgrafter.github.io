@@ -3,6 +3,7 @@
   grid-template-columns: 1fr auto; /* Title takes available space, date takes its content width */
   gap: 1em; /* Space between title and date */
   align-items: baseline; /* Align text baselines */
+  margin-bottom: 1.2em; /* Add space between list items */
 }
 
 .post-list-item a {
@@ -10,10 +11,24 @@
 }
 
 .home-date {
+  font-size: 0.8em; /* Shrink date slightly */
   text-align: right; /* Ensure date text is right-aligned within its grid cell */
   white-space: nowrap; /* Prevent the date itself from wrapping */
 }
 
 header.w {
   text-align: center; /* Center the content within the header */
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 600px) {
+  .post-list-item {
+    grid-template-columns: 1fr; /* Stack title and date vertically */
+    gap: 0.2em; /* Reduce gap when stacked */
+  }
+
+  .home-date {
+    text-align: left; /* Align date to the left when stacked */
+    white-space: normal; /* Allow date to wrap if extremely long (though unlikely) */
+  }
 }
