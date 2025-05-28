@@ -1,8 +1,11 @@
-title: Memgrafter's Record
-description: Certain Notations concerning the Cross Road of Artifice and the Mind.
-theme: just-the-docs
+title: My Awesome Blog
+description: A place for my thoughts and writings.
+theme: minima
 
-url: https://memgrafter.github.io/record/
+url: https://memgrafter.github.io/record/ # Keep your existing URL structure
 
-aux_links:
-  "gh": https://github.com/robbintt
+permalink: /:year/:month/:day/:title/
+
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
