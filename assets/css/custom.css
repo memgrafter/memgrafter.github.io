@@ -1,30 +1,34 @@
---- a/assets/css/custom.css
-+++ b/assets/css/custom.css
-@@ -1,7 +1,7 @@
- .post-list-item {
-   display: grid;
--  grid-template-columns: 1fr auto; /* Title takes available space, date takes its content width */
--  gap: 1em; /* Space between title and date */
-+  grid-template-columns: auto 1fr; /* Date takes its content width, title takes remaining space */
-+  gap: 1em; /* Space between date and title */
-   align-items: baseline; /* Align text baselines */
-   margin-bottom: 1.2em; /* Add space between list items */
- }
-@@ -12,7 +12,7 @@
- 
- .home-date {
-   font-size: 0.8em; /* Shrink date slightly */
--  text-align: right; /* Ensure date text is right-aligned within its grid cell */
-+  text-align: left; /* Align date to the left */
-   white-space: nowrap; /* Prevent the date itself from wrapping */
- }
- 
-@@ -24,7 +24,7 @@
-     gap: 0.2em; /* Reduce gap when stacked */
-   }
- 
--  .home-date {
-+  .home-date { /* When stacked, date is still left-aligned */
-     text-align: left; /* Align date to the left when stacked */
-     white-space: normal; /* Allow date to wrap if extremely long (though unlikely) */
-   }
+.post-list-item {
+  display: grid;
+  grid-template-columns: auto 1fr; /* Date takes its content width, title takes remaining space */
+  gap: 1em; /* Space between date and title */
+  align-items: baseline; /* Align text baselines */
+  margin-bottom: 1.2em; /* Add space between list items */
+}
+
+.post-list-item a {
+  word-break: break-word; /* Allow long titles to wrap */
+}
+
+.home-date {
+  font-size: 0.8em; /* Shrink date slightly */
+  text-align: left; /* Align date to the left */
+  white-space: nowrap; /* Prevent the date itself from wrapping */
+}
+
+header.w {
+  text-align: center; /* Center the content within the header */
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 600px) {
+  .post-list-item {
+    grid-template-columns: 1fr; /* Stack title and date vertically */
+    gap: 0.2em; /* Reduce gap when stacked */
+  }
+
+  .home-date { /* When stacked, date is still left-aligned */
+    text-align: left; /* Align date to the left when stacked */
+    white-space: normal; /* Allow date to wrap if extremely long (though unlikely) */
+  }
+}
