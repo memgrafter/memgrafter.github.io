@@ -1,0 +1,17 @@
+.post-list-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline; /* Aligns text baselines */
+  flex-wrap: wrap; /* Allows wrapping if title is too long */
+  margin-bottom: 0.5em; /* Add some vertical spacing between list items */
+}
+
+.post-list-item a {
+  flex-grow: 1; /* Allow title to take up available space */
+  margin-right: 1em; /* Space between title and date */
+}
+
+.home-date {
+  flex-shrink: 0; /* Prevent date from shrinking */
+  text-align: right; /* Ensure date text is right-aligned within its flex item */
+}
