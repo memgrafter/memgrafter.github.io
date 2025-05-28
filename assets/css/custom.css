@@ -1,17 +1,18 @@
 .post-list-item {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 1fr auto; /* Title takes available space, date takes its natural width */
+  gap: 1em; /* Space between title and date */
   align-items: baseline; /* Aligns text baselines */
-  flex-wrap: wrap; /* Allows wrapping if title is too long */
   margin-bottom: 0.5em; /* Add some vertical spacing between list items */
 }
 
 .post-list-item a {
-  flex-grow: 1; /* Allow title to take up available space */
-  margin-right: 1em; /* Space between title and date */
+  /* No flex properties needed here, grid handles sizing */
+  word-break: break-word; /* Allows long words in the title to break and wrap */
 }
 
 .home-date {
-  flex-shrink: 0; /* Prevent date from shrinking */
-  text-align: right; /* Ensure date text is right-aligned within its flex item */
+  /* No flex properties needed here */
+  text-align: right; /* Ensure date text is right-aligned within its grid cell */
+  white-space: nowrap; /* Prevent the date itself from wrapping */
 }
