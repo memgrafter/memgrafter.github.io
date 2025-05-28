@@ -1,10 +1,19 @@
---- a/assets/css/custom.css
-+++ b/assets/css/custom.css
-@@ -13,3 +13,7 @@
-   text-align: right; /* Ensure date text is right-aligned within its grid cell */
-   white-space: nowrap; /* Prevent the date itself from wrapping */
- }
-+
-+header.w {
-+  text-align: center; /* Center the content within the header */
-+}
+.post-list-item {
+  display: grid;
+  grid-template-columns: 1fr auto; /* Title takes available space, date takes its content width */
+  gap: 1em; /* Space between title and date */
+  align-items: baseline; /* Align text baselines */
+}
+
+.post-list-item a {
+  word-break: break-word; /* Allow long titles to wrap */
+}
+
+.home-date {
+  text-align: right; /* Ensure date text is right-aligned within its grid cell */
+  white-space: nowrap; /* Prevent the date itself from wrapping */
+}
+
+header.w {
+  text-align: center; /* Center the content within the header */
+}
