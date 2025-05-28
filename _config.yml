@@ -1,8 +1,8 @@
-title: My Awesome Blog
-description: A place for my thoughts and writings.
+title: Memgrafter's Record
+description: Certain Notations concerning the Cross Road of Artifice and the Mind.
 theme: moonwalk
 
-url: https://memgrafter.github.io/ # Changed to root GitHub Pages URL
+url: https://memgrafter.github.io/
 
 plugins:
   - jekyll-feed
