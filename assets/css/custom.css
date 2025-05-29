@@ -111,28 +111,6 @@ main.page-content .w ol {
   padding-top: 0;
 }
 
-/* Style for the fold button container */
-.post-fold-controls {
-  text-align: center;
-  margin-top: 1.5em; /* Space above the button */
-  margin-bottom: 2em; /* Space below the button */
-}
-
-.post-fold-controls button {
-  background-color: #FF6B6B; /* Match header color */
-  color: white;
-  border: none;
-  padding: 0.8em 1.5em;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 1em;
-  transition: background-color 0.3s ease;
-}
-
-.post-fold-controls button:hover {
-  background-color: #FF9F42; /* Match second gradient color on hover */
-}
-
 /* Style for the footer credits */
 footer.w.credits {
   padding: 0; /* Set footer padding to 0 */
@@ -165,6 +143,6 @@ footer.w.credits {
   text-align: center;
   font-size: 2em; /* Adjust size as needed */
   cursor: pointer;
-  margin: 20px 0 5px 0; /* Top margin 20px, Bottom margin 5px */
+  margin: 0; /* Remove all margins from the arrow */
   transition: color 0.3s ease, opacity 0.3s ease; /* Smooth transition for color and opacity changes */
 }
