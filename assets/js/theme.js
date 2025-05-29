@@ -70,9 +70,10 @@ function calculateInitialVisiblePosts(postListItems) {
   // to ensure the arrow and footer fit comfortably without scrollbars appearing prematurely.
   const arrowAndPaddingBuffer = 60;
 
-  // Calculate available height and floor it to the nearest integer.
-  // This ensures we are conservative about the available space.
-  let availableHeightForPosts = Math.floor(windowHeight - headerHeight - footerHeight - arrowAndPaddingBuffer);
+  // Calculate available height and round it to the nearest integer.
+  // This provides a slightly less conservative estimate than Math.floor,
+  // which can help at fractional pixel boundaries.
+  let availableHeightForPosts = Math.round(windowHeight - headerHeight - footerHeight - arrowAndPaddingBuffer);
 
   // Ensure availableHeightForPosts is not negative
   if (availableHeightForPosts < 0) availableHeightForPosts = 0;
