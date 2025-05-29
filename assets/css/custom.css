@@ -20,6 +20,7 @@
 
 header.w {
   text-align: center; /* Center the content within the header */
+  margin-bottom: 0.5em; /* Reduced space below the header */
 }
 
 /* Style for the main page title to match the gradient start */
@@ -44,8 +45,9 @@ main.page-content .post-meta {
 }
 
 /* Reduce space between header and first post item on index page */
+/* This rule might be overridden by header's margin-bottom or main's padding-top */
 .page-content .post-list-item:first-of-type {
-  margin-top: 0; /* Remove or reduce default top margin */
+  margin-top: 0; /* Ensure no extra top margin on the first post item */
 }
 
 
