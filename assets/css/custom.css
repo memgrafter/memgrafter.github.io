@@ -44,8 +44,8 @@
 header.w {
   text-align: center; /* Center the content within the header */
   margin-bottom: 0em; /* Reduced space below the header even further */
-  padding-top: 48px; /* Set header top padding */
-  padding-bottom: 48px; /* Set header bottom padding */
+  padding-top: 32px; /* Set header top padding */
+  padding-bottom: 32px; /* Set header bottom padding */
 }
 
 /* Style for the main page title to match the gradient start */
@@ -139,6 +139,13 @@ footer.w.credits {
 }
 
 /* Responsive adjustments for smaller screens */
+@media (max-width: 650px) { /* New media query for mobile header padding */
+  header.w {
+    padding-top: 24px; /* Reduce header top padding on mobile */
+    padding-bottom: 24px; /* Reduce header bottom padding on mobile */
+  }
+}
+
 @media (max-width: 600px) {
   .post-list-item {
     grid-template-columns: 1fr; /* Stack title and date vertically */
