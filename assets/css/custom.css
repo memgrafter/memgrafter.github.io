@@ -136,6 +136,7 @@ main.page-content .w ol {
 /* Style for the footer credits */
 footer.w.credits {
   padding: 0; /* Set footer padding to 0 */
+  margin-top: 0; /* Remove top margin from footer */
 }
 
 /* Responsive adjustments for smaller screens */
