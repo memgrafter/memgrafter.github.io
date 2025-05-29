@@ -64,7 +64,7 @@ header.w > a {
 
 /* Style for strong tags within the header subtitle */
 .header-subtitle strong {
-  color: #444; /* Set explicit color to a common dark grey, similar to footer */
+  color: rgb(173, 181, 189); /* Set explicit color to match footer */
 }
 
 /* Style for individual post page titles */
