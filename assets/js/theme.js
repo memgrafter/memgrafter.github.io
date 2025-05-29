@@ -92,12 +92,13 @@ function handlePostVisibilityAndToggle() {
   let upArrow = document.getElementById('upArrow');
 
   // Helper to create and style an arrow element
-  function createArrow(id, char, color) {
+  function createArrow(id, char, color, opacity = 1) { // Added opacity parameter
     const arrow = document.createElement('div');
     arrow.id = id;
     arrow.className = 'post-toggle-arrow';
     arrow.textContent = char;
     arrow.style.color = color; // Apply the calculated gradient color
+    arrow.style.opacity = opacity; // Apply opacity
     return arrow;
   }
 
@@ -135,7 +136,7 @@ function handlePostVisibilityAndToggle() {
     // Only show down arrow if there are more posts to reveal than the initial visible count
     if (postListItems.length > initialVisiblePosts) {
       const arrowColor = getArrowColorForIndex(initialVisiblePosts); // Color for the 6th post's position
-      downArrow = createArrow('downArrow', '▼', arrowColor); // Changed 'v' to '▼'
+      downArrow = createArrow('downArrow', '▼', arrowColor, 0.3); // Set opacity for down arrow
       postListContainer.appendChild(downArrow);
       downArrow.addEventListener('click', showAllPosts);
     }
@@ -154,7 +155,7 @@ function handlePostVisibilityAndToggle() {
     // Add the up arrow at the end of the post list
     // The up arrow's color should be based on the last post's position
     const arrowColor = getArrowColorForIndex(postListItems.length - 1);
-    upArrow = createArrow('upArrow', '^', arrowColor);
+    upArrow = createArrow('upArrow', '^', arrowColor); // Up arrow remains full opacity
     postListContainer.appendChild(upArrow);
     upArrow.addEventListener('click', showInitialState); // Attach listener to revert to initial state
   }
