@@ -55,6 +55,12 @@ main.page-content {
   padding-top: 0; /* Remove default top padding */
 }
 
+/* Target the inner 'w' div within main content to remove its top padding/margin */
+main.page-content .w {
+  padding-top: 0; /* Remove default top padding */
+  margin-top: 0; /* Remove default top margin */
+}
+
 
 /* Responsive adjustments for smaller screens */
 @media (max-width: 600px) {
