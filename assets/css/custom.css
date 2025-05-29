@@ -25,11 +25,13 @@
   font-size: 1.2em; /* Slightly larger font for titles */
   font-weight: bold; /* Bolder font for titles */
   line-height: 1.4; /* Comfortable line height for titles */
-  /* NEW: Ensure text is transparent and clipped to background from the start */
+  /* Ensure text is transparent and clipped to background from the start */
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
   text-fill-color: transparent;
+  /* NEW: Provide an initial background image to prevent white flash */
+  background-image: linear-gradient(to right, #FF6B6B, #FF6B6B);
 }
 
 /* Hover effect for post titles: brighten the text */
