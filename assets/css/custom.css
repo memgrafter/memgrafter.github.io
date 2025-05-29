@@ -46,6 +46,12 @@ header.w {
   margin-bottom: 0em; /* Reduced space below the header even further */
 }
 
+/* Style for the main page title to match the gradient start */
+header.w > a {
+  color: #FF6B6B; /* Deeper Reddish Orange - matches the start of the sunset gradient */
+  transition: color 0.3s ease; /* Smooth transition for color changes */
+}
+
 /* New style for the header subtitle */
 .header-subtitle {
   font-size: 0.9em;
