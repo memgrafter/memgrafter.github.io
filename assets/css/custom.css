@@ -18,13 +18,18 @@
 
 .post-list-item a {
   word-break: break-word; /* Allow long titles to wrap */
-  /* Apply transition for color changes and filter */
-  transition: color 0.3s ease, filter 0.3s ease;
+  /* Apply transition for filter */
+  transition: filter 0.3s ease; /* Removed 'color' transition */
   display: flex; /* Changed from inline-block to flex */
   width: fit-content; /* Make the link only take up content width */
   font-size: 1.2em; /* Slightly larger font for titles */
   font-weight: bold; /* Bolder font for titles */
   line-height: 1.4; /* Comfortable line height for titles */
+  /* NEW: Ensure text is transparent and clipped to background from the start */
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-fill-color: transparent;
 }
 
 /* Hover effect for post titles: brighten the text */
