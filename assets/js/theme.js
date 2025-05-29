@@ -74,6 +74,99 @@ function applySunsetGradientToTitles() {
   });
 }
 
+// --- Post Fold Functionality ---
+const MIN_VISIBLE_POSTS = 5; // Minimum number of posts to always show
+let allPostsCurrentlyShown = false; // State to track if all posts are revealed
+
+function applyPostFold() {
+  const postListItems = document.querySelectorAll('.post-list-item');
+  const toggleButton = document.getElementById('togglePostsButton');
+  const header = document.querySelector('header.w');
+  const footer = document.querySelector('footer.w'); // Assuming footer also has class 'w' or similar
+
+  if (!postListItems.length || !toggleButton || !header || !footer) {
+    return; // Exit if elements not found
+  }
+
+  const totalPosts = postListItems.length;
+
+  // Temporarily make all posts visible to accurately measure height
+  // This is crucial for correct height calculation on resize or initial load
+  postListItems.forEach(item => item.classList.remove('is-hidden'));
+
+  // Get heights after ensuring elements are visible
+  const headerHeight = header.offsetHeight;
+  const footerHeight = footer.offsetHeight;
+  // Calculate average post item height including its margin-bottom
+  let postItemHeight = 0;
+  if (postListItems.length > 0) {
+    // Use the first item to get its height and margin
+    postItemHeight = postListItems[0].offsetHeight + parseFloat(getComputedStyle(postListItems[0]).marginBottom);
+  }
+
+  const viewportHeight = window.innerHeight;
+
+  // Calculate available height for posts
+  // Subtract header, footer, and a small buffer for button/padding
+  const availableHeight = viewportHeight - headerHeight - footerHeight - 100; // 100px buffer for button/general padding
+
+  let dynamicVisiblePosts = 0;
+  if (postItemHeight > 0) {
+    dynamicVisiblePosts = Math.floor(availableHeight / postItemHeight);
+  }
+
+  // Ensure minimum visible posts
+  const numPostsToShow = Math.max(MIN_VISIBLE_POSTS, dynamicVisiblePosts);
+
+  // If all posts can fit or there are fewer than MIN_VISIBLE_POSTS, hide the button
+  if (totalPosts <= numPostsToShow) {
+    toggleButton.style.display = 'none';
+    postListItems.forEach(item => item.classList.remove('is-hidden')); // Ensure all are visible
+    allPostsCurrentlyShown = true; // Set state to true as all are visible
+    return;
+  } else {
+    toggleButton.style.display = 'block'; // Show the button
+  }
+
+  // Apply fold based on current state
+  if (!allPostsCurrentlyShown) {
+    // Hide posts beyond the calculated number
+    postListItems.forEach((item, index) => {
+      if (index >= numPostsToShow) {
+        item.classList.add('is-hidden');
+      } else {
+        item.classList.remove('is-hidden');
+      }
+    });
+    toggleButton.textContent = `Show All ${totalPosts - numPostsToShow} Posts`;
+  } else {
+    // All posts are already shown, update button to "Show Less"
+    postListItems.forEach(item => item.classList.remove('is-hidden'));
+    toggleButton.textContent = `Show Less`;
+  }
+}
+
+// Event listener for the fold button
+document.addEventListener('click', (event) => {
+  if (event.target && event.target.id === 'togglePostsButton') {
+    const postListItems = document.querySelectorAll('.post-list-item');
+    const toggleButton = event.target;
+    const totalPosts = postListItems.length;
+
+    allPostsCurrentlyShown = !allPostsCurrentlyShown; // Toggle state
+
+    if (allPostsCurrentlyShown) {
+      // Reveal all posts
+      postListItems.forEach(item => item.classList.remove('is-hidden'));
+      toggleButton.textContent = `Show Less`;
+    } else {
+      // Re-apply fold based on dynamic calculation
+      applyPostFold(); // This will re-calculate and hide
+    }
+  }
+});
+
+
 // Check for saved theme preference or system preference on load
 document.addEventListener('DOMContentLoaded', () => {
   const savedTheme = localStorage.getItem('theme');
@@ -94,4 +187,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Apply the sunset gradient to titles after the DOM is loaded
   applySunsetGradientToTitles();
+
+  // Apply the post fold functionality
+  // Use a small timeout to ensure all CSS is rendered and heights are accurate
+  setTimeout(applyPostFold, 150);
 });
+
+// Re-apply fold on window resize to adjust to new height
+window.addEventListener('resize', applyPostFold);

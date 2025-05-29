@@ -10,3 +10,7 @@ layout: home
     </li>
   {% endfor %}
 </ul>
+
+<div class="post-fold-controls">
+  <button id="togglePostsButton" style="display: none;">Show More Posts</button>
+</div>

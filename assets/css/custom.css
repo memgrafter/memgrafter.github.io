@@ -4,6 +4,16 @@
   gap: 1em; /* Space between date and title */
   align-items: baseline; /* Align text baselines */
   margin-bottom: 1.2em; /* Add space between list items */
+  /* For fold functionality */
+  max-height: 500px; /* A value large enough to contain any single post title item */
+  opacity: 1;
+  transition: max-height 0.5s ease-out, opacity 0.5s ease-out, margin-bottom 0.5s ease-out;
+}
+
+.post-list-item.is-hidden {
+  max-height: 0;
+  opacity: 0;
+  margin-bottom: 0; /* Collapse margin when hidden */
 }
 
 .post-list-item a {
@@ -68,6 +78,28 @@ main.page-content .w ul,
 main.page-content .w ol {
   margin-top: 0;
   padding-top: 0;
+}
+
+/* Style for the fold button container */
+.post-fold-controls {
+  text-align: center;
+  margin-top: 1.5em; /* Space above the button */
+  margin-bottom: 2em; /* Space below the button */
+}
+
+.post-fold-controls button {
+  background-color: #FF6B6B; /* Match header color */
+  color: white;
+  border: none;
+  padding: 0.8em 1.5em;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1em;
+  transition: background-color 0.3s ease;
+}
+
+.post-fold-controls button:hover {
+  background-color: #FF9F42; /* Match second gradient color on hover */
 }
 
 
