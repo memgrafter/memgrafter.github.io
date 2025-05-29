@@ -20,7 +20,7 @@
 
 header.w {
   text-align: center; /* Center the content within the header */
-  margin-bottom: 0.5em; /* Reduced space below the header */
+  margin-bottom: 0em; /* Reduced space below the header even further */
 }
 
 /* Style for the main page title to match the gradient start */
