@@ -1,6 +1,6 @@
 <header class="w">
   <a href="{{ "/" | relative_url }}" class="text-bold">{{ site.title }}</a>
-  <p class="header-subtitle">{{ site.description }}</p>
+  <p class="header-subtitle">{{ site.description | raw }}</p>
   <nav>
     {% for item in site.data.navigation %}
       <a href="{{ item.link | relative_url }}">{{ item.name }}</a>
