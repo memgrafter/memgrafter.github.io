@@ -1,3 +1,39 @@
+// Define sunsetColors globally as it's used by multiple functions
+const sunsetColors = [
+  [255, 107, 107], // Deeper Reddish Orange (e.g., #FF6B6B)
+  [255, 159, 66],  // Vibrant Orange (e.g., #FF9F42)
+  [255, 199, 119], // Softer Peach/Orange (e.g., #FFC777)
+  [255, 224, 130]  // Light Yellow/Gold (e.g., #FFE082)
+];
+
+// Helper function for linear interpolation
+function lerp(a, b, t) {
+  return a + (b - a) * t;
+}
+
+// Helper function to interpolate between two RGB colors
+function interpolateColor(color1, color2, factor) {
+  const r = Math.round(lerp(color1[0], color2[0], factor));
+  const g = Math.round(lerp(color1[1], color2[1], factor));
+  const b = Math.round(lerp(color1[2], color2[2], factor));
+  return `rgb(${r}, ${g}, ${b})`;
+}
+
+// Helper function to get a color from a multi-stop gradient based on a normalized position
+function getGradientColor(colors, normalizedPosition) {
+  if (normalizedPosition <= 0) return `rgb(${colors[0].join(',')})`;
+  if (normalizedPosition >= 1) return `rgb(${colors[colors.length - 1].join(',')})`;
+
+  const segmentLength = 1 / (colors.length - 1);
+  const segmentIndex = Math.floor(normalizedPosition / segmentLength);
+  const segmentFactor = (normalizedPosition % segmentLength) / segmentLength;
+
+  const color1 = colors[segmentIndex];
+  const color2 = colors[Math.min(segmentIndex + 1, colors.length - 1)];
+
+  return interpolateColor(color1, color2, segmentFactor);
+}
+
 // Function to set the theme
 function setTheme(theme) {
   document.documentElement.setAttribute('data-theme', theme);
@@ -19,153 +55,113 @@ function applySunsetGradientToTitles() {
   const postTitles = document.querySelectorAll('.post-list-item a');
   const numTitles = postTitles.length;
 
-  // Define sunset colors in RGB format with more distinct stops
-  const sunsetColors = [
-    [255, 107, 107], // Deeper Reddish Orange (e.g., #FF6B6B)
-    [255, 159, 66],  // Vibrant Orange (e.g., #FF9F42)
-    [255, 199, 119], // Softer Peach/Orange (e.g., #FFC777)
-    [255, 224, 130]  // Light Yellow/Gold (e.g., #FFE082)
-  ];
-
-  // Helper function for linear interpolation
-  function lerp(a, b, t) {
-    return a + (b - a) * t;
-  }
-
-  // Helper function to interpolate between two RGB colors
-  function interpolateColor(color1, color2, factor) {
-    const r = Math.round(lerp(color1[0], color2[0], factor));
-    const g = Math.round(lerp(color1[1], color2[1], factor));
-    const b = Math.round(lerp(color1[2], color2[2], factor));
-    return `rgb(${r}, ${g}, ${b})`;
-  }
-
-  // Helper function to get a color from a multi-stop gradient based on a normalized position
-  function getGradientColor(colors, normalizedPosition) {
-    if (normalizedPosition <= 0) return `rgb(${colors[0].join(',')})`;
-    if (normalizedPosition >= 1) return `rgb(${colors[colors.length - 1].join(',')})`;
-
-    // Determine which segment of the gradient the position falls into
-    const segmentLength = 1 / (colors.length - 1);
-    const segmentIndex = Math.floor(normalizedPosition / segmentLength);
-    // Calculate factor within that segment (0 to 1)
-    const segmentFactor = (normalizedPosition % segmentLength) / segmentLength;
-
-    const color1 = colors[segmentIndex];
-    const color2 = colors[Math.min(segmentIndex + 1, colors.length - 1)]; // Ensure we don't go out of bounds
-
-    return interpolateColor(color1, color2, segmentFactor);
-  }
-
   if (numTitles === 0) {
     return; // No titles to process
   }
 
   postTitles.forEach((title, index) => {
     // Calculate a normalized position (0 to 1) for the current title
-    // If only one title, it gets the start color (position 0).
-    const normalizedPosition = numTitles === 1 ? 0 : index / (numTitles - 1);
+    const normalizedPosition = index / (numTitles > 1 ? numTitles - 1 : 1);
 
     // Get the interpolated color for this position from the sunset gradient
     const color = getGradientColor(sunsetColors, normalizedPosition);
 
-    // Apply the calculated color to the title's text
-    title.style.color = color;
+    // Apply the calculated color as a linear gradient for text fill
+    title.style.backgroundImage = `linear-gradient(to right, ${color}, ${color})`;
+    title.style.webkitBackgroundClip = 'text';
+    title.style.webkitTextFillColor = 'transparent';
+    title.style.backgroundClip = 'text';
+    title.style.textFillColor = 'transparent';
   });
 }
 
-// --- Post Fold Functionality ---
-const MIN_VISIBLE_POSTS = 5; // Minimum number of posts to always show
-let allPostsCurrentlyShown = false; // State to track if all posts are revealed
-
-function applyPostFold() {
+// New function to handle post visibility and toggle functionality
+function handlePostVisibilityAndToggle() {
   const postListItems = document.querySelectorAll('.post-list-item');
-  const toggleButton = document.getElementById('togglePostsButton');
-  const header = document.querySelector('header.w');
-  const footer = document.querySelector('footer.w'); // Assuming footer also has class 'w' or similar
+  // Assuming the post list items are directly within a container like <ul class="post-list"> or <div class="post-list">
+  // If your posts are directly under main.page-content .w, you might need to adjust this selector.
+  // For now, let's assume there's a parent container for the list items.
+  const postListContainer = document.querySelector('.post-list') || document.querySelector('main.page-content .w');
 
-  if (!postListItems.length || !toggleButton || !header || !footer) {
+  if (!postListItems.length || !postListContainer) {
     return; // Exit if elements not found
   }
 
-  const totalPosts = postListItems.length;
+  const initialVisiblePosts = 5;
+  let downArrow = document.getElementById('downArrow');
+  let upArrow = document.getElementById('upArrow');
 
-  // Temporarily make all posts visible to accurately measure height
-  // This is crucial for correct height calculation on resize or initial load
-  postListItems.forEach(item => item.classList.remove('is-hidden'));
-
-  // Get heights after ensuring elements are visible
-  const headerHeight = header.offsetHeight;
-  const footerHeight = footer.offsetHeight;
-  // Calculate average post item height including its margin-bottom
-  let postItemHeight = 0;
-  if (postListItems.length > 0) {
-    // Use the first item to get its height and margin
-    postItemHeight = postListItems[0].offsetHeight + parseFloat(getComputedStyle(postListItems[0]).marginBottom);
+  // Helper to create and style an arrow element
+  function createArrow(id, char, color) {
+    const arrow = document.createElement('div');
+    arrow.id = id;
+    arrow.className = 'post-toggle-arrow';
+    arrow.textContent = char;
+    arrow.style.color = color; // Apply the calculated gradient color
+    return arrow;
   }
 
-  const viewportHeight = window.innerHeight;
+  // Helper to get the appropriate gradient color for an arrow based on its conceptual index
+  function getArrowColorForIndex(index) {
+    const numTitles = postListItems.length;
+    if (numTitles === 0) return `rgb(${sunsetColors[0].join(',')})`; // Default if no titles
 
-  // Calculate available height for posts
-  // Subtract header, footer, and a small buffer for button/padding
-  const availableHeight = viewportHeight - headerHeight - footerHeight - 100; // 100px buffer for button/general padding
-
-  let dynamicVisiblePosts = 0;
-  if (postItemHeight > 0) {
-    dynamicVisiblePosts = Math.floor(availableHeight / postItemHeight);
+    // Calculate normalized position for the arrow (representing the 'next' post in the gradient sequence)
+    // If the arrow is for "show more", its color should be based on the first hidden post.
+    // If the arrow is for "show less", its color should be based on the last visible post.
+    const normalizedPosition = index / (numTitles > 1 ? numTitles - 1 : 1);
+    return getGradientColor(sunsetColors, normalizedPosition);
   }
 
-  // Ensure minimum visible posts
-  const numPostsToShow = Math.max(MIN_VISIBLE_POSTS, dynamicVisiblePosts);
+  // Function to set the initial state of posts (first 5 visible, with fading)
+  function showInitialState() {
+    // Remove any existing arrows before setting the state
+    if (downArrow) downArrow.remove();
+    if (upArrow) upArrow.remove();
 
-  // If all posts can fit or there are fewer than MIN_VISIBLE_POSTS, hide the button
-  if (totalPosts <= numPostsToShow) {
-    toggleButton.style.display = 'none';
-    postListItems.forEach(item => item.classList.remove('is-hidden')); // Ensure all are visible
-    allPostsCurrentlyShown = true; // Set state to true as all are visible
-    return;
-  } else {
-    toggleButton.style.display = 'block'; // Show the button
-  }
-
-  // Apply fold based on current state
-  if (!allPostsCurrentlyShown) {
-    // Hide posts beyond the calculated number
     postListItems.forEach((item, index) => {
-      if (index >= numPostsToShow) {
-        item.classList.add('is-hidden');
-      } else {
-        item.classList.remove('is-hidden');
+      item.style.display = 'block'; // Ensure all are visible before applying specific rules
+      item.style.opacity = '1'; // Reset opacity for all items
+
+      if (index >= initialVisiblePosts) {
+        item.style.display = 'none'; // Hide posts beyond the initial count
+      } else if (index === initialVisiblePosts - 2) { // 4th post (index 3)
+        item.style.opacity = '0.75';
+      } else if (index === initialVisiblePosts - 1) { // 5th post (index 4)
+        item.style.opacity = '0.5';
       }
     });
-    toggleButton.textContent = `Show All ${totalPosts - numPostsToShow} Posts`;
-  } else {
-    // All posts are already shown, update button to "Show Less"
-    postListItems.forEach(item => item.classList.remove('is-hidden'));
-    toggleButton.textContent = `Show Less`;
-  }
-}
 
-// Event listener for the fold button
-document.addEventListener('click', (event) => {
-  if (event.target && event.target.id === 'togglePostsButton') {
-    const postListItems = document.querySelectorAll('.post-list-item');
-    const toggleButton = event.target;
-    const totalPosts = postListItems.length;
-
-    allPostsCurrentlyShown = !allPostsCurrentlyShown; // Toggle state
-
-    if (allPostsCurrentlyShown) {
-      // Reveal all posts
-      postListItems.forEach(item => item.classList.remove('is-hidden'));
-      toggleButton.textContent = `Show Less`;
-    } else {
-      // Re-apply fold based on dynamic calculation
-      applyPostFold(); // This will re-calculate and hide
+    // Only show down arrow if there are more posts to reveal than the initial visible count
+    if (postListItems.length > initialVisiblePosts) {
+      const arrowColor = getArrowColorForIndex(initialVisiblePosts); // Color for the 6th post's position
+      downArrow = createArrow('downArrow', 'v', arrowColor);
+      postListContainer.appendChild(downArrow);
+      downArrow.addEventListener('click', showAllPosts);
     }
   }
-});
 
+  // Function to show all posts and replace the down arrow with an up arrow
+  function showAllPosts() {
+    postListItems.forEach(item => {
+      item.style.display = 'block'; // Make all posts visible
+      item.style.opacity = '1'; // Ensure full opacity when all are shown
+    });
+
+    // Remove the down arrow
+    if (downArrow) downArrow.remove();
+
+    // Add the up arrow at the end of the post list
+    // The up arrow's color should be based on the last post's position
+    const arrowColor = getArrowColorForIndex(postListItems.length - 1);
+    upArrow = createArrow('upArrow', '^', arrowColor);
+    postListContainer.appendChild(upArrow);
+    upArrow.addEventListener('click', showInitialState); // Attach listener to revert to initial state
+  }
+
+  // Call the initial state function when this script runs
+  showInitialState();
+}
 
 // Check for saved theme preference or system preference on load
 document.addEventListener('DOMContentLoaded', () => {
@@ -188,10 +184,15 @@ document.addEventListener('DOMContentLoaded', () => {
   // Apply the sunset gradient to titles after the DOM is loaded
   applySunsetGradientToTitles();
 
-  // Apply the post fold functionality
-  // Use a small timeout to ensure all CSS is rendered and heights are accurate
-  setTimeout(applyPostFold, 150);
+  // Handle post visibility and toggle functionality
+  handlePostVisibilityAndToggle();
+
+  // Attach mode switcher to the theme toggle button if it exists
+  const themeToggleButton = document.getElementById('theme-toggle');
+  if (themeToggleButton) {
+    themeToggleButton.addEventListener('click', modeSwitcher);
+  }
 });
 
-// Re-apply fold on window resize to adjust to new height
-window.addEventListener('resize', applyPostFold);
+// Re-apply post visibility on window resize to adjust to new height
+window.addEventListener('resize', handlePostVisibilityAndToggle);

@@ -7,7 +7,7 @@
   /* For fold functionality */
   max-height: 500px; /* A value large enough to contain any single post title item */
   opacity: 1;
-  transition: max-height 0.5s ease-out, opacity 0.5s ease-out, margin-bottom 0.5s ease-out;
+  transition: max-height 0.5s ease-out, opacity 0.5s ease-out, margin-bottom 0.5s ease-out, opacity 0.5s ease-out; /* Added opacity transition */
 }
 
 .post-list-item.is-hidden {
@@ -114,4 +114,14 @@ main.page-content .w ol {
     text-align: left; /* Align date to the left when stacked */
     white-space: normal; /* Allow date to wrap if extremely long (though unlikely) */
   }
+}
+
+/* New style for the post toggle arrows */
+.post-toggle-arrow {
+  display: block; /* Ensures it takes full width for centering */
+  text-align: center;
+  font-size: 2em; /* Adjust size as needed */
+  cursor: pointer;
+  margin: 20px 0; /* Provides spacing above and below the arrow */
+  transition: color 0.3s ease; /* Smooth transition for color changes */
 }
