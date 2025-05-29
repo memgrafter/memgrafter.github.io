@@ -22,6 +22,12 @@ header.w {
   text-align: center; /* Center the content within the header */
 }
 
+/* Style for the main page title to match the gradient start */
+header.w h1 a {
+  color: #FF6B6B; /* Deeper Reddish Orange - matches the start of the sunset gradient */
+  transition: color 0.3s ease; /* Smooth transition for color changes */
+}
+
 /* Responsive adjustments for smaller screens */
 @media (max-width: 600px) {
   .post-list-item {
