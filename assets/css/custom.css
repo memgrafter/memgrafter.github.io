@@ -29,6 +29,14 @@ header.w > a {
   transition: color 0.3s ease; /* Smooth transition for color changes */
 }
 
+/* Style for individual post page titles */
+/* Assuming the post title is an h1 within the main content area */
+main.page-content h1 {
+  color: #FF6B6B; /* Deeper Reddish Orange - matches the start of the sunset gradient */
+  transition: color 0.3s ease; /* Smooth transition for color changes */
+}
+
+
 /* Responsive adjustments for smaller screens */
 @media (max-width: 600px) {
   .post-list-item {
