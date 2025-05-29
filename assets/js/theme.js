@@ -135,7 +135,7 @@ function handlePostVisibilityAndToggle() {
     // Only show down arrow if there are more posts to reveal than the initial visible count
     if (postListItems.length > initialVisiblePosts) {
       const arrowColor = getArrowColorForIndex(initialVisiblePosts); // Color for the 6th post's position
-      downArrow = createArrow('downArrow', 'v', arrowColor);
+      downArrow = createArrow('downArrow', '▼', arrowColor); // Changed 'v' to '▼'
       postListContainer.appendChild(downArrow);
       downArrow.addEventListener('click', showAllPosts);
     }
