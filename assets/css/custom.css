@@ -37,9 +37,9 @@ main.page-content h1 {
 }
 
 /* Style for individual post page dates */
-/* Extrapolated color for the date */
+/* Using the second color from the sunsetColors array for better distinction */
 main.page-content .post-meta {
-  color: rgb(255, 127, 91); /* Extrapolated color for the date */
+  color: #FF9F42; /* Vibrant Orange - second color from sunsetColors array */
   transition: color 0.3s ease; /* Smooth transition for color changes */
 }
 
