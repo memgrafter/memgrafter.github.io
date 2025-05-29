@@ -61,6 +61,13 @@ main.page-content .w {
   margin-top: 0; /* Remove default top margin */
 }
 
+/* Remove top margin/padding from the list container (ul/ol) within the content wrapper */
+main.page-content .w ul,
+main.page-content .w ol {
+  margin-top: 0;
+  padding-top: 0;
+}
+
 
 /* Responsive adjustments for smaller screens */
 @media (max-width: 600px) {
