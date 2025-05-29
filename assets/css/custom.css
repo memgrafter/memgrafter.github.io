@@ -4,27 +4,21 @@
   gap: 1em; /* Space between date and title */
   align-items: baseline; /* Align text baselines */
   margin-bottom: 2em; /* Increased space between list items */
-  padding-bottom: 1.5em; /* Space above the new divider */
-  border-bottom: 1px solid #eee; /* Subtle divider line */
   /* For fold functionality */
   max-height: 500px; /* A value large enough to contain any single post title item */
   opacity: 1;
-  transition: max-height 0.5s ease-out, opacity 0.5s ease-out, margin-bottom 0.5s ease-out, padding-bottom 0.5s ease-out, border-bottom 0.5s ease-out; /* Added padding and border transitions */
+  transition: max-height 0.5s ease-out, opacity 0.5s ease-out, margin-bottom 0.5s ease-out, background-color 0.3s ease; /* Added background-color transition */
 }
 
 .post-list-item.is-hidden {
   max-height: 0;
   opacity: 0;
   margin-bottom: 0; /* Collapse margin when hidden */
-  padding-bottom: 0; /* Collapse padding when hidden */
-  border-bottom: none; /* Remove border when hidden */
 }
 
-/* Remove border and extra margin from the last post item */
-.post-list-item:last-of-type {
-  border-bottom: none;
-  margin-bottom: 0;
-  padding-bottom: 0;
+/* Subtle background shading on hover */
+.post-list-item:hover {
+  background-color: #f9f9f9; /* Very light grey background on hover */
 }
 
 .post-list-item a {
@@ -152,19 +146,4 @@ main.page-content .w ol {
   cursor: pointer;
   margin: 20px 0 5px 0; /* Top margin 20px, Bottom margin 5px */
   transition: color 0.3s ease, opacity 0.3s ease; /* Smooth transition for color and opacity changes */
-}
-
-/* Ensure the footer is closer by removing its top margin/padding */
-.credits {
-  margin-top: 0;
-  padding-top: 0;
-}
-
-/* Style for the quote within the footer */
-.credits p {
-  padding-top: 2em; /* Increased padding above the quote */
-  font-size: 0.9em; /* Slightly smaller font size */
-  line-height: 1.6; /* More comfortable line height */
-  color: #888; /* Softer grey color */
-  font-style: italic; /* Italicize for a quote feel */
 }
