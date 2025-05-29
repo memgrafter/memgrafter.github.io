@@ -188,8 +188,25 @@ function handlePostVisibilityAndToggle() {
 
   // Function to set the initial state of posts (first N visible, with fading)
   function showInitialState() {
-    // Recalculate initialVisiblePosts every time this function is called
-    // to adapt to potential window resize or content changes.
+    // Ensure all posts are temporarily visible to get accurate measurements
+    postListItems.forEach(item => {
+      item.style.display = 'block'; // Ensure display is block for measurement
+      item.style.opacity = '1'; // Ensure opacity is 1 for measurement
+    });
+
+    // Force a reflow to ensure layout is calculated after making all items visible.
+    // This is crucial when elements are initially hidden or their layout might be unstable.
+    if (postListContainer) {
+      // Accessing offsetHeight forces the browser to re-calculate layout
+      // eslint-disable-next-line no-unused-vars
+      const forceReflow = postListContainer.offsetHeight;
+    } else if (postListItems.length > 0) {
+      // Fallback if container not found, force reflow on the first item
+      // eslint-disable-next-line no-unused-vars
+      const forceReflow = postListItems[0].offsetHeight;
+    }
+
+    // Recalculate initialVisiblePosts after ensuring layout is settled
     const initialVisiblePosts = calculateInitialVisiblePosts(postListItems);
 
     // Remove any existing arrows before setting the state
@@ -197,9 +214,7 @@ function handlePostVisibilityAndToggle() {
     if (upArrow) upArrow.remove();
 
     postListItems.forEach((item, index) => {
-      item.style.display = 'block'; // Ensure all are visible before applying specific rules
-      item.style.opacity = '1'; // Reset opacity for all items
-
+      // Apply hiding/fading based on calculated initialVisiblePosts
       if (index >= initialVisiblePosts) {
         item.style.display = 'none'; // Hide posts beyond the initial count
       } else if (index === initialVisiblePosts - 2 && initialVisiblePosts >= 2) { // Second to last visible post
