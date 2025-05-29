@@ -34,6 +34,16 @@ function getGradientColor(colors, normalizedPosition) {
   return interpolateColor(color1, color2, segmentFactor);
 }
 
+// Debounce utility function
+function debounce(func, delay) {
+  let timeout;
+  return function(...args) {
+    const context = this;
+    clearTimeout(timeout);
+    timeout = setTimeout(() => func.apply(context, args), delay);
+  };
+}
+
 // NEW FUNCTION: Calculate the number of posts that can initially fit
 function calculateInitialVisiblePosts(postListItems) {
   const minVisiblePosts = 5; // Minimum number of posts to always show
@@ -255,4 +265,6 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // Re-apply post visibility on window resize to adjust to new height
-window.addEventListener('resize', handlePostVisibilityAndToggle);
+// Debounce the resize event to prevent "twitchy" behavior
+const debouncedHandlePostVisibilityAndToggle = debounce(handlePostVisibilityAndToggle, 150); // 150ms delay
+window.addEventListener('resize', debouncedHandlePostVisibilityAndToggle);
