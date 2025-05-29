@@ -65,12 +65,16 @@ main.page-content .post-meta {
 /* Target the main content area to remove its top padding */
 main.page-content {
   padding-top: 0; /* Remove default top padding */
+  padding-bottom: 0; /* Ensure no bottom padding */
+  margin-bottom: 0; /* Ensure no bottom margin */
 }
 
 /* Target the inner 'w' div within main content to remove its top padding/margin */
 main.page-content .w {
   padding-top: 0; /* Remove default top padding */
   margin-top: 0; /* Remove default top margin */
+  padding-bottom: 0; /* Ensure no bottom padding */
+  margin-bottom: 0; /* Ensure no bottom margin */
 }
 
 /* Remove top margin/padding from the list container (ul/ol) within the content wrapper */
@@ -122,6 +126,6 @@ main.page-content .w ol {
   text-align: center;
   font-size: 2em; /* Adjust size as needed */
   cursor: pointer;
-  margin: 20px 0 5px 0; /* Top margin 20px, Bottom margin 5px */
+  margin: 20px 0 0 0; /* Top margin 20px, Bottom margin 0px */
   transition: color 0.3s ease, opacity 0.3s ease; /* Smooth transition for color and opacity changes */
 }
