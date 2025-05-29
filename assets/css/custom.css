@@ -10,6 +10,7 @@
   word-break: break-word; /* Allow long titles to wrap */
   /* Apply transition for color changes */
   transition: color 0.3s ease;
+  display: inline-block; /* Make the link only take up content width */
 }
 
 .home-date {
