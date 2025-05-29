@@ -60,22 +60,25 @@ function calculateInitialVisiblePosts(postListItems) {
   // to ensure the arrow and footer fit comfortably without scrollbars appearing prematurely.
   const arrowAndPaddingBuffer = 60;
 
-  let availableHeightForPosts = windowHeight - headerHeight - footerHeight - arrowAndPaddingBuffer;
+  // Calculate available height and round it to the nearest integer
+  // This makes the target height an integer, which is easier to compare against
+  let availableHeightForPosts = Math.round(windowHeight - headerHeight - footerHeight - arrowAndPaddingBuffer);
 
   // Ensure availableHeightForPosts is not negative
   if (availableHeightForPosts < 0) availableHeightForPosts = 0;
 
   let visibleCount = 0;
-  let currentAccumulatedHeight = 0;
+  let currentAccumulatedHeight = 0; // This will accumulate rounded item heights
 
   // Iterate through posts to see how many fit
   for (let i = 0; i < postListItems.length; i++) {
     const item = postListItems[i];
-    // Get the full height including margins for accurate calculation
     const itemStyle = getComputedStyle(item);
-    const itemHeight = item.offsetHeight + parseFloat(itemStyle.marginTop) + parseFloat(itemStyle.marginBottom);
+    // Calculate item height including margins, and round it to the nearest integer
+    // This ensures that each item's height contribution is an integer, preventing fractional accumulation errors
+    const itemHeight = Math.round(item.offsetHeight + parseFloat(itemStyle.marginTop) + parseFloat(itemStyle.marginBottom));
 
-    if (currentAccumulatedHeight + itemHeight <= availableHeightForPosts) {
+    if ((currentAccumulatedHeight + itemHeight) <= availableHeightForPosts) {
       currentAccumulatedHeight += itemHeight;
       visibleCount++;
     } else {
