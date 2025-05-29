@@ -23,7 +23,8 @@ header.w {
 }
 
 /* Style for the main page title to match the gradient start */
-header.w h1 a {
+/* Corrected selector: target the <a> tag directly under header.w */
+header.w > a {
   color: #FF6B6B; /* Deeper Reddish Orange - matches the start of the sunset gradient */
   transition: color 0.3s ease; /* Smooth transition for color changes */
 }
