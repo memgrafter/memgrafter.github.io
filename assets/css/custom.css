@@ -32,7 +32,7 @@ header.w > a {
 /* Style for individual post page titles */
 /* Assuming the post title is an h1 within the main content area */
 main.page-content h1 {
-  color: #FF9F42; /* Vibrant Orange - matches the second color of the sunset gradient */
+  color: rgb(255, 117, 99); /* Custom color for individual post titles */
   transition: color 0.3s ease; /* Smooth transition for color changes */
 }
 
