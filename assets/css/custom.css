@@ -50,6 +50,11 @@ main.page-content .post-meta {
   margin-top: 0; /* Ensure no extra top margin on the first post item */
 }
 
+/* Target the main content area to remove its top padding */
+main.page-content {
+  padding-top: 0; /* Remove default top padding */
+}
+
 
 /* Responsive adjustments for smaller screens */
 @media (max-width: 600px) {
