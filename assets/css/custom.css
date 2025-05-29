@@ -36,6 +36,13 @@ main.page-content h1 {
   transition: color 0.3s ease; /* Smooth transition for color changes */
 }
 
+/* Style for individual post page dates */
+/* Extrapolated color for the date */
+main.page-content .post-meta {
+  color: rgb(255, 127, 91); /* Extrapolated color for the date */
+  transition: color 0.3s ease; /* Smooth transition for color changes */
+}
+
 
 /* Responsive adjustments for smaller screens */
 @media (max-width: 600px) {
