@@ -64,7 +64,7 @@ header.w > a {
 
 /* Style for strong tags within the header subtitle */
 .header-subtitle strong {
-  /* Removed explicit color to inherit from parent .header-subtitle */
+  color: #FF6B6B; /* Set explicit color to match main title */
 }
 
 /* Style for individual post page titles */
