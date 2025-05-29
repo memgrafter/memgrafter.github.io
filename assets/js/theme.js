@@ -19,12 +19,12 @@ function applySunsetGradientToTitles() {
   const postTitles = document.querySelectorAll('.post-list-item a');
   const numTitles = postTitles.length;
 
-  // Define sunset colors in RGB format
-  // These colors correspond to #ff7e5f, #feb47b, #ffc796
+  // Define sunset colors in RGB format with more distinct stops
   const sunsetColors = [
-    [255, 126, 95],  // Start: Orange/Coral
-    [254, 180, 123], // Middle: Peach
-    [255, 199, 150]  // End: Lighter Peach/Yellowish
+    [255, 107, 107], // Deeper Reddish Orange (e.g., #FF6B6B)
+    [255, 159, 66],  // Vibrant Orange (e.g., #FF9F42)
+    [255, 199, 119], // Softer Peach/Orange (e.g., #FFC777)
+    [255, 224, 130]  // Light Yellow/Gold (e.g., #FFE082)
   ];
 
   // Helper function for linear interpolation
