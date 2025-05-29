@@ -43,6 +43,11 @@ main.page-content .post-meta {
   transition: color 0.3s ease; /* Smooth transition for color changes */
 }
 
+/* Reduce space between header and first post item on index page */
+.page-content .post-list-item:first-of-type {
+  margin-top: 0; /* Remove or reduce default top margin */
+}
+
 
 /* Responsive adjustments for smaller screens */
 @media (max-width: 600px) {
