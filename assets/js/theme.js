@@ -155,7 +155,7 @@ function handlePostVisibilityAndToggle() {
     // Add the up arrow at the end of the post list
     // The up arrow's color should be based on the last post's position
     const arrowColor = getArrowColorForIndex(postListItems.length - 1);
-    upArrow = createArrow('upArrow', '^', arrowColor); // Up arrow remains full opacity
+    upArrow = createArrow('upArrow', '▲', arrowColor); // Changed '^' to '▲', Up arrow remains full opacity
     postListContainer.appendChild(upArrow);
     upArrow.addEventListener('click', showInitialState); // Attach listener to revert to initial state
   }

@@ -122,6 +122,6 @@ main.page-content .w ol {
   text-align: center;
   font-size: 2em; /* Adjust size as needed */
   cursor: pointer;
-  margin: 20px 0 0 0; /* Top margin 20px, Bottom margin 0px */
+  margin: 20px 0 5px 0; /* Top margin 20px, Bottom margin 5px */
   transition: color 0.3s ease, opacity 0.3s ease; /* Smooth transition for color and opacity changes */
 }
