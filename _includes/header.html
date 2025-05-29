@@ -1,5 +1,6 @@
 <header class="w">
   <a href="{{ "/" | relative_url }}" class="text-bold">{{ site.title }}</a>
+  <p class="header-subtitle">{{ site.description }}</p>
   <nav>
     {% for item in site.data.navigation %}
       <a href="{{ item.link | relative_url }}">{{ item.name }}</a>

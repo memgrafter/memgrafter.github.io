@@ -53,6 +53,16 @@ header.w > a {
   transition: color 0.3s ease; /* Smooth transition for color changes */
 }
 
+/* New style for the header subtitle */
+.header-subtitle {
+  font-size: 0.9em;
+  line-height: 1.5em; /* User specified line height */
+  color: #888; /* Softer grey color */
+  font-style: italic; /* Italicize for a quote feel */
+  margin-top: 0.5em; /* Space below the main title */
+  margin-bottom: 1em; /* Space above the navigation */
+}
+
 /* Style for individual post page titles */
 /* Assuming the post title is an h1 within the main content area */
 main.page-content h1 {
