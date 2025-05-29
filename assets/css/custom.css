@@ -64,7 +64,7 @@ header.w > a {
 
 /* Style for strong tags within the header subtitle */
 .header-subtitle strong {
-  color: #FF6B6B; /* Deeper Reddish Orange for bolded words */
+  /* Removed explicit color to inherit from parent .header-subtitle */
 }
 
 /* Style for individual post page titles */
