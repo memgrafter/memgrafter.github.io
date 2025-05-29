@@ -56,7 +56,7 @@ header.w > a {
 .header-subtitle {
   font-size: 0.9em;
   line-height: 1.5em; /* User specified line height */
-  color: #888; /* Softer grey color */
+  color: rgb(173, 181, 189); /* Set entire subtitle color to match footer */
   font-style: italic; /* Italicize for a quote feel */
   margin-top: 0.5em; /* Space below the main title */
   margin-bottom: 1em; /* Space above the navigation */
@@ -64,7 +64,7 @@ header.w > a {
 
 /* Style for strong tags within the header subtitle */
 .header-subtitle strong {
-  color: rgb(173, 181, 189); /* Set explicit color to match footer */
+  /* Removed explicit color to inherit from parent .header-subtitle */
 }
 
 /* Style for individual post page titles */
