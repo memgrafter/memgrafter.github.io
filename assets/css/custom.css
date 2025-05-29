@@ -146,3 +146,16 @@ footer.w.credits {
   margin: 0; /* Remove all margins from the arrow */
   transition: color 0.3s ease, opacity 0.3s ease; /* Smooth transition for color and opacity changes */
 }
+
+/* Initially hide the main content to prevent flash */
+html.js-loading main.page-content {
+    visibility: hidden;
+    opacity: 0;
+}
+
+/* Show content once JavaScript has initialized it */
+html.js-loaded main.page-content {
+    visibility: visible;
+    opacity: 1;
+    transition: opacity 0.3s ease-in-out; /* Smooth transition */
+}

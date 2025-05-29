@@ -1,3 +1,6 @@
+// Add this at the very top of the script to apply the loading class immediately
+document.documentElement.classList.add('js-loading');
+
 // Define sunsetColors globally as it's used by multiple functions
 const sunsetColors = [
   [255, 107, 107], // Deeper Reddish Orange (e.g., #FF6B6B)
@@ -151,6 +154,9 @@ function handlePostVisibilityAndToggle() {
   const postListContainer = document.querySelector('.post-list') || document.querySelector('main.page-content .w');
 
   if (!postListItems.length || !postListContainer) {
+    // If elements not found, ensure the page becomes visible
+    document.documentElement.classList.remove('js-loading');
+    document.documentElement.classList.add('js-loaded');
     return; // Exit if elements not found
   }
 
@@ -232,6 +238,11 @@ function handlePostVisibilityAndToggle() {
 
   // Call the initial state function when this script runs
   showInitialState();
+
+  // After initial state is set, remove loading class and add loaded class
+  // This makes the content visible
+  document.documentElement.classList.remove('js-loading');
+  document.documentElement.classList.add('js-loaded');
 }
 
 // Check for saved theme preference or system preference on load
@@ -252,12 +263,6 @@ document.addEventListener('DOMContentLoaded', () => {
     document.documentElement.classList.add('transition');
   }, 100);
 
-  // Apply the sunset gradient to titles after the DOM is loaded
-  applySunsetGradientToTitles();
-
-  // Handle post visibility and toggle functionality
-  handlePostVisibilityAndToggle();
-
   // Attach mode switcher to the theme toggle button if it exists
   const themeToggleButton = document.getElementById('theme-toggle');
   if (themeToggleButton) {
@@ -265,7 +270,19 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 
+// Functions that require all resources to be loaded and layout stable
+window.addEventListener('load', () => {
+  // Call handlePostVisibilityAndToggle first as it sets up the main content visibility
+  handlePostVisibilityAndToggle();
+  // Then apply gradients, which might depend on the visible state of posts
+  applySunsetGradientToTitles();
+});
+
+
 // Re-apply post visibility on window resize to adjust to new height
 // Debounce the resize event to prevent "twitchy" behavior
-const debouncedHandlePostVisibilityAndToggle = debounce(handlePostVisibilityAndToggle, 150); // 150ms delay
+const debouncedHandlePostVisibilityAndToggle = debounce(() => {
+  handlePostVisibilityAndToggle();
+  applySunsetGradientToTitles(); // Re-apply gradients on resize as well
+}, 150); // 150ms delay
 window.addEventListener('resize', debouncedHandlePostVisibilityAndToggle);
