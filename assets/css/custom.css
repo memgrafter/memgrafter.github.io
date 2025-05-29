@@ -44,6 +44,8 @@
 header.w {
   text-align: center; /* Center the content within the header */
   margin-bottom: 0em; /* Reduced space below the header even further */
+  padding-top: 48px; /* Set header top padding */
+  padding-bottom: 48px; /* Set header bottom padding */
 }
 
 /* Style for the main page title to match the gradient start */
@@ -131,6 +133,10 @@ main.page-content .w ol {
   background-color: #FF9F42; /* Match second gradient color on hover */
 }
 
+/* Style for the footer credits */
+footer.w.credits {
+  padding: 0; /* Set footer padding to 0 */
+}
 
 /* Responsive adjustments for smaller screens */
 @media (max-width: 600px) {
