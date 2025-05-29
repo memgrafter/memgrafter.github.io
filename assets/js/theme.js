@@ -34,6 +34,59 @@ function getGradientColor(colors, normalizedPosition) {
   return interpolateColor(color1, color2, segmentFactor);
 }
 
+// NEW FUNCTION: Calculate the number of posts that can initially fit
+function calculateInitialVisiblePosts(postListItems) {
+  const minVisiblePosts = 5; // Minimum number of posts to always show
+  if (postListItems.length === 0) {
+    return minVisiblePosts;
+  }
+
+  // Assuming header and footer elements exist with these tags
+  const header = document.querySelector('header');
+  const footer = document.querySelector('footer');
+
+  if (!header || !footer) {
+    console.warn("Could not find header or footer elements. Defaulting to minVisiblePosts.");
+    return minVisiblePosts;
+  }
+
+  const headerHeight = header.offsetHeight;
+  const footerHeight = footer.offsetHeight;
+  const windowHeight = window.innerHeight;
+
+  // Estimate the height of the down arrow and some general padding/margin buffer.
+  // This is an approximation as the arrow is added dynamically.
+  // You might need to adjust this value (in pixels) based on your site's specific layout
+  // to ensure the arrow and footer fit comfortably without scrollbars appearing prematurely.
+  const arrowAndPaddingBuffer = 60;
+
+  let availableHeightForPosts = windowHeight - headerHeight - footerHeight - arrowAndPaddingBuffer;
+
+  // Ensure availableHeightForPosts is not negative
+  if (availableHeightForPosts < 0) availableHeightForPosts = 0;
+
+  let visibleCount = 0;
+  let currentAccumulatedHeight = 0;
+
+  // Iterate through posts to see how many fit
+  for (let i = 0; i < postListItems.length; i++) {
+    const item = postListItems[i];
+    // Get the full height including margins for accurate calculation
+    const itemStyle = getComputedStyle(item);
+    const itemHeight = item.offsetHeight + parseFloat(itemStyle.marginTop) + parseFloat(itemStyle.marginBottom);
+
+    if (currentAccumulatedHeight + itemHeight <= availableHeightForPosts) {
+      currentAccumulatedHeight += itemHeight;
+      visibleCount++;
+    } else {
+      break; // No more posts fit
+    }
+  }
+
+  // Ensure at least minVisiblePosts are always shown
+  return Math.max(visibleCount, minVisiblePosts);
+}
+
 // Function to set the theme
 function setTheme(theme) {
   document.documentElement.setAttribute('data-theme', theme);
@@ -87,7 +140,6 @@ function handlePostVisibilityAndToggle() {
     return; // Exit if elements not found
   }
 
-  const initialVisiblePosts = 5;
   let downArrow = document.getElementById('downArrow');
   let upArrow = document.getElementById('upArrow');
 
@@ -114,8 +166,12 @@ function handlePostVisibilityAndToggle() {
     return getGradientColor(sunsetColors, normalizedPosition);
   }
 
-  // Function to set the initial state of posts (first 5 visible, with fading)
+  // Function to set the initial state of posts (first N visible, with fading)
   function showInitialState() {
+    // Recalculate initialVisiblePosts every time this function is called
+    // to adapt to potential window resize or content changes.
+    const initialVisiblePosts = calculateInitialVisiblePosts(postListItems);
+
     // Remove any existing arrows before setting the state
     if (downArrow) downArrow.remove();
     if (upArrow) upArrow.remove();
@@ -126,16 +182,16 @@ function handlePostVisibilityAndToggle() {
 
       if (index >= initialVisiblePosts) {
         item.style.display = 'none'; // Hide posts beyond the initial count
-      } else if (index === initialVisiblePosts - 2) { // 4th post (index 3)
+      } else if (index === initialVisiblePosts - 2 && initialVisiblePosts >= 2) { // Second to last visible post
         item.style.opacity = '0.75';
-      } else if (index === initialVisiblePosts - 1) { // 5th post (index 4)
+      } else if (index === initialVisiblePosts - 1 && initialVisiblePosts >= 1) { // Last visible post
         item.style.opacity = '0.5';
       }
     });
 
     // Only show down arrow if there are more posts to reveal than the initial visible count
     if (postListItems.length > initialVisiblePosts) {
-      const arrowColor = getArrowColorForIndex(initialVisiblePosts); // Color for the 6th post's position
+      const arrowColor = getArrowColorForIndex(initialVisiblePosts); // Color for the first hidden post's position
       downArrow = createArrow('downArrow', '▼', arrowColor, 0.3); // Set opacity for down arrow
       postListContainer.appendChild(downArrow);
       downArrow.addEventListener('click', showAllPosts);
