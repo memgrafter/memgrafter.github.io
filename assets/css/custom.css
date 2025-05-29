@@ -8,14 +8,8 @@
 
 .post-list-item a {
   word-break: break-word; /* Allow long titles to wrap */
-  /* Sunset Gradient for Titles */
-  background: linear-gradient(to right, #ff7e5f, #feb47b, #ffc796); /* Sunset colors */
-  -webkit-background-clip: text; /* Clip background to text shape */
-  background-clip: text; /* Standard property */
-  color: transparent; /* Make text transparent to show gradient */
-  background-size: 200% 100%; /* Make background wider to allow for stretching */
-  background-position-x: 0%; /* Default position, will be adjusted by JS */
-  transition: background-position-x 0.3s ease; /* Smooth transition for position changes */
+  /* Apply transition for color changes */
+  transition: color 0.3s ease;
 }
 
 .home-date {
