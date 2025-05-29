@@ -46,13 +46,6 @@ header.w {
   margin-bottom: 0em; /* Reduced space below the header even further */
 }
 
-/* Style for the main page title to match the gradient start */
-/* Corrected selector: target the <a> tag directly under header.w */
-header.w > a {
-  color: #FF6B6B; /* Deeper Reddish Orange - matches the start of the sunset gradient */
-  transition: color 0.3s ease; /* Smooth transition for color changes */
-}
-
 /* New style for the header subtitle */
 .header-subtitle {
   font-size: 0.9em;
@@ -61,6 +54,11 @@ header.w > a {
   font-style: italic; /* Italicize for a quote feel */
   margin-top: 0.5em; /* Space below the main title */
   margin-bottom: 1em; /* Space above the navigation */
+}
+
+/* Style for strong tags within the header subtitle */
+.header-subtitle strong {
+  color: #FF6B6B; /* Deeper Reddish Orange for bolded words */
 }
 
 /* Style for individual post page titles */
