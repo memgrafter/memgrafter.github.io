@@ -1,0 +1,172 @@
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}
+
+.post-list-item {
+  display: grid;
+  grid-template-columns: auto 1fr; /* Date takes its content width, title takes remaining space */
+  gap: 1em; /* Space between date and title */
+  align-items: baseline; /* Align text baselines */
+  margin-bottom: 2em; /* Increased space between list items */
+  /* For fold functionality */
+  max-height: 500px; /* A value large enough to contain any single post title item */
+  opacity: 1;
+  transition: max-height 0.5s ease-out, opacity 0.5s ease-out, margin-bottom 0.5s ease-out;
+}
+
+.post-list-item.is-hidden {
+  max-height: 0;
+  opacity: 0;
+  margin-bottom: 0; /* Collapse margin when hidden */
+}
+
+.post-list-item a {
+  word-break: break-word; /* Allow long titles to wrap */
+  /* Apply transition for filter */
+  transition: filter 0.3s ease; /* Removed 'color' transition */
+  display: flex; /* Changed from inline-block to flex */
+  width: fit-content; /* Make the link only take up content width */
+  font-size: 1.2em; /* Slightly larger font for titles */
+  font-weight: bold; /* Bolder font for titles */
+  line-height: 1.4; /* Comfortable line height for titles */
+  /* Ensure text is transparent and clipped to background from the start */
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-fill-color: transparent;
+  /* NEW: Provide an initial background image to prevent white flash */
+  background-image: linear-gradient(to right, #FF6B6B, #FF6B6B);
+}
+
+/* Hover effect for post titles: brighten the text */
+.post-list-item a:hover {
+  filter: brightness(1.2); /* Brighten the text by 20% */
+}
+
+
+.home-date {
+  font-size: 0.75em; /* Slightly smaller date */
+  text-align: left; /* Align date to the left */
+  white-space: nowrap; /* Prevent the date itself from wrapping */
+  color: #aaa; /* Light grey color for date */
+  line-height: 1.4; /* Comfortable line height for date */
+}
+
+header.w {
+  text-align: center; /* Center the content within the header */
+  margin-bottom: 0em; /* Reduced space below the header even further */
+  padding-top: 32px; /* Set header top padding */
+  padding-bottom: 32px; /* Set header bottom padding */
+}
+
+/* Style for the main page title to match the gradient start */
+header.w > a {
+  color: #FF6B6B; /* Deeper Reddish Orange - matches the start of the sunset gradient */
+  transition: color 0.3s ease; /* Smooth transition for color changes */
+}
+
+/* New style for the header subtitle */
+.header-subtitle {
+  font-size: 0.9em;
+  line-height: 1.5em; /* User specified line height */
+  color: rgb(173, 181, 189); /* Set entire subtitle color to match footer */
+  font-style: italic; /* Italicize for a quote feel */
+  margin-top: 0.5em; /* Space below the main title */
+  margin-bottom: 1em; /* Space above the navigation */
+}
+
+/* Style for strong tags within the header subtitle */
+.header-subtitle strong {
+  /* Removed explicit color to inherit from parent .header-subtitle */
+}
+
+/* Style for individual post page titles */
+/* Assuming the post title is an h1 within the main content area */
+main.page-content h1 {
+  color: rgb(255, 117, 99); /* Custom color for individual post titles */
+  transition: color 0.3s ease; /* Smooth transition for color changes */
+}
+
+/* Style for individual post page dates */
+/* Using the second color from the sunsetColors array for better distinction */
+main.page-content .post-meta {
+  color: #FF9F42; /* Vibrant Orange - second color from sunsetColors array */
+  transition: color 0.3s ease; /* Smooth transition for color changes */
+}
+
+/* Reduce space between header and first post item on index page */
+/* This rule might be overridden by header's margin-bottom or main's padding-top */
+.page-content .post-list-item:first-of-type {
+  margin-top: 0; /* Ensure no extra top margin on the first post item */
+}
+
+/* Target the main content area to remove its top padding */
+main.page-content {
+  padding-top: 0; /* Remove default top padding */
+  padding-bottom: 0; /* Ensure no bottom padding */
+  margin-bottom: 0; /* Ensure no bottom margin */
+}
+
+/* Target the inner 'w' div within main content to remove its top padding/margin */
+main.page-content .w {
+  padding-top: 0; /* Remove default top padding */
+  margin-top: 0; /* Remove default top margin */
+  padding-bottom: 0; /* Ensure no bottom padding */
+  margin-bottom: 0; /* Ensure no bottom margin */
+}
+
+/* Remove top margin/padding from the list container (ul/ol) within the content wrapper */
+main.page-content .w ul,
+main.page-content .w ol {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+/* Style for the footer credits */
+footer.w.credits {
+  padding: 0; /* Set footer padding to 0 */
+  margin-top: 0; /* Remove top margin from footer */
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 650px) { /* New media query for mobile header padding */
+  header.w {
+    padding-top: 24px; /* Reduce header top padding on mobile */
+    padding-bottom: 24px; /* Reduce header bottom padding on mobile */
+  }
+}
+
+@media (max-width: 600px) {
+  .post-list-item {
+    grid-template-columns: 1fr; /* Stack title and date vertically */
+    gap: 0.2em; /* Reduce gap when stacked */
+  }
+
+  .home-date { /* When stacked, date is still left-aligned */
+    text-align: left; /* Align date to the left when stacked */
+    white-space: normal; /* Allow date to wrap if extremely long (though unlikely) */
+  }
+}
+
+/* New style for the post toggle arrows */
+.post-toggle-arrow {
+  display: block; /* Ensures it takes full width for centering */
+  text-align: center;
+  font-size: 2em; /* Adjust size as needed */
+  cursor: pointer;
+  margin: 0; /* Remove all margins from the arrow */
+  transition: color 0.3s ease, opacity 0.3s ease; /* Smooth transition for color and opacity changes */
+}
+
+/* Initially hide the main content to prevent flash */
+html.js-loading main.page-content {
+    visibility: hidden;
+    opacity: 0;
+}
+
+/* Show content once JavaScript has initialized it */
+html.js-loaded main.page-content {
+    visibility: visible;
+    opacity: 1;
+    transition: opacity 0.3s ease-in-out; /* Smooth transition */
+}

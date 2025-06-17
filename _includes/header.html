@@ -1,0 +1,15 @@
+<header class="w">
+  <a href="{{ "/" | relative_url }}" class="text-bold">{{ site.title }}</a>
+  <p class="header-subtitle">
+    {% assign description_with_bold = site.description | replace: "Certain Notations", "<strong>Certain Notations</strong>" %}
+    {% assign description_with_bold = description_with_bold | replace: "Cross Road", "<strong>Cross Road</strong>" %}
+    {% assign description_with_bold = description_with_bold | replace: "Artifice", "<strong>Artifice</strong>" %}
+    {% assign description_with_bold = description_with_bold | replace: "Mind", "<strong>Mind</strong>" %}
+    {{ description_with_bold | raw }}
+  </p>
+  <nav>
+    {% for item in site.data.navigation %}
+      <a href="{{ item.link | relative_url }}">{{ item.name }}</a>
+    {% endfor %}
+  </nav>
+</header>

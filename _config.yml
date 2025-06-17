@@ -1,0 +1,10 @@
+title: Memgrafter's Record
+description: Certain Notations concerning the Cross Road of Artifice and the Mind.
+theme: moonwalk
+
+url: https://memgrafter.github.io/
+
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+  - jekyll-seo-tag
