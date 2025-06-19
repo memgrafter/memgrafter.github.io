@@ -13,4 +13,5 @@ aider --model $MODEL \
   --no-show-model-warnings \
   --yes-always \
   --no-git-commit-verify \
+  --cache-prompts \
   --no-auto-lint
