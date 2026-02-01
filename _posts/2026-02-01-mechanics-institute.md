@@ -24,9 +24,6 @@ Wikipedia states that Mechanics were 'civil and mechanical engineers' of the Ind
 
 The [Mechanics' Institutes](https://en.wikipedia.org/wiki/Mechanics%27_institute) were ad hoc Victorian colleges and lending libraries. The primary aim was to spread scientific and technological knowledge to everyone, perhaps we can call the main focus 'skilled tradespeople' in today's language. They needed to extend their knowledge of chemistry, electicity, machinery, and other similar things to produce work.
 
-So, of course, I want to know: 'Who were the coders?'  As our era of handwritten code draws to a close, we may see a similar transformation.  In two hundred years, will people look back and ask: 
+So, of course, I want to know: 'Who were the coders?'  As our era of handwritten code draws to a close, we may see a similar transformation.  In two hundred years, roughly six to eight generations, will people look back and ask: 
 
 > Who were the working people hand transcibing things to machines between the early 1900s and 2025?
-
-
----

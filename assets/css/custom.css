@@ -128,6 +128,12 @@ footer.w.credits {
   margin-top: 0; /* Remove top margin from footer */
 }
 
+.footer-rule {
+  border: 0;
+  border-top: 1px solid rgba(255, 159, 66, 0.5);
+  margin: 1.5em 0 0.75em;
+}
+
 /* Responsive adjustments for smaller screens */
 @media (max-width: 650px) { /* New media query for mobile header padding */
   header.w {
