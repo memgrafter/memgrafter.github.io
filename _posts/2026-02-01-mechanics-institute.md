@@ -26,4 +26,4 @@ The [Mechanics' Institutes](https://en.wikipedia.org/wiki/Mechanics%27_institute
 
 So, of course, I want to know: 'Who were the coders?'  As our era of handwritten code draws to a close, we may see a similar transformation.  In two hundred years, roughly six to eight generations, will people look back and ask: 
 
-> Who were the working people hand transcibing things to machines between the early 1900s and 2025?
+> Who were the working people hand-writing things to machines between the early 1900s and 2025?
