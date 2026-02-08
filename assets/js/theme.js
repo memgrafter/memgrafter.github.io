@@ -145,6 +145,31 @@ function applySunsetGradientToTitles() {
   });
 }
 
+// Function to apply one shared sunset gradient sequence across post accent elements
+function applySunsetGradientToPostAccentElements() {
+  const accentElements = Array.from(document.querySelectorAll(
+    '.post .post-title, .post .post-meta, .post-content h1, .post-content h2, .post-content h3, .post-content h4, .post-content h5, .post-content h6, .post-content a, .post-content em, .post-content i, .post-content strong, .post-content b, .post-content code, .post-content del, .post-content s, .post-content abbr, .post-content hr, .post-content blockquote, .post-content blockquote p'
+  )).filter((el) => !el.closest('pre'));
+
+  const numElements = accentElements.length;
+
+  if (numElements === 0) {
+    return; // No accent elements to process
+  }
+
+  accentElements.forEach((el, index) => {
+    const normalizedPosition = index / (numElements > 1 ? numElements - 1 : 1);
+    const color = getGradientColor(sunsetColors, normalizedPosition);
+
+    if (el.tagName === 'HR') {
+      el.style.borderTopColor = color;
+      el.style.borderColor = color;
+    } else {
+      el.style.color = color;
+    }
+  });
+}
+
 // New function to handle post visibility and toggle functionality
 function handlePostVisibilityAndToggle() {
   const postListItems = document.querySelectorAll('.post-list-item');
@@ -291,6 +316,7 @@ window.addEventListener('load', () => {
   handlePostVisibilityAndToggle();
   // Then apply gradients, which might depend on the visible state of posts
   applySunsetGradientToTitles();
+  applySunsetGradientToPostAccentElements();
 });
 
 
@@ -299,5 +325,6 @@ window.addEventListener('load', () => {
 const debouncedHandlePostVisibilityAndToggle = debounce(() => {
   handlePostVisibilityAndToggle();
   applySunsetGradientToTitles(); // Re-apply gradients on resize as well
+  applySunsetGradientToPostAccentElements();
 }, 150); // 150ms delay
 window.addEventListener('resize', debouncedHandlePostVisibilityAndToggle);

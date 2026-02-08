@@ -1,5 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Cabin:wght@400;700&display=swap');
+
 body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-family: 'Cabin', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 }
 
 .post-list-item {
@@ -80,11 +82,15 @@ header.w > a {
   /* Removed explicit color to inherit from parent .header-subtitle */
 }
 
-/* Style for individual post page titles */
-/* Assuming the post title is an h1 within the main content area */
-main.page-content h1 {
-  color: rgb(255, 117, 99); /* Custom color for individual post titles */
-  transition: color 0.3s ease; /* Smooth transition for color changes */
+/* Style for post/page headers to match title color */
+main.page-content h1,
+main.page-content h2,
+main.page-content h3,
+main.page-content h4,
+main.page-content h5,
+main.page-content h6 {
+  color: rgb(255, 117, 99);
+  transition: color 0.3s ease;
 }
 
 /* Style for individual post page dates */
